@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang='ko'>
+    <head>
+        <meta charset='UTF-8'>
+        <title>Document</title>
+    </head>
+    <body>
+        <h1>우리 고유의 음식</h1>
+        <h3>클릭하면 설명이 나옵니다.</h3>
+        <ul>
+            <li id="kimchi">김치</li>
+            <li id="samgyup">삼겹살</li>
+            <li id="gamja">감자전</li>
+            <li id="makgul">막걸리</li>
+            <li id="jjajang">짜장면</li>
+            <li id="bibim">비빔밥</li>
+        </ul>
+
+        <!-- 이벤트 전파 비적용 케이스로 이벤트를 각각 설정한 코드입니다. -->
+        <script>
+            // 디스트럭처링으로 위의 li태그 6개를 변수에 저장한 다음,
+            const[$kimchi, $samgyup,$gamja,$makgul,$jjajang,$bibim ] = document.querySelectorAll('li');
+
+            // 각각의 li태그가 클릭되었을 때, "헤당 음식 is korean"이 alert으로 나오게 이벤트를 적용
+            $kimchi.onclick=()=>{
+                alert("kimchi is korena");
+            }
+            $makgul.onclick=()=>{
+                alert("makgul is korena");
+            }
+            $bibim.onclick=()=>{
+                alert("bibim is korena");
+            }
+            $jjajang.onclick=()=>{
+                alert("jjajang is korena");
+            }
+            $samgyup.onclick=()=>{
+                alert("samgyup is korena");
+            }
+            $gamja.onclick=()=>{
+                alert("gamja is korena");
+            }
+
+        </script>
+    </body>
+</html>

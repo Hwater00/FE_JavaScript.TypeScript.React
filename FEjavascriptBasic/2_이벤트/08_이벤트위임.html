@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang='ko'>
+    <head>
+        <meta charset='UTF-8'>
+        <title>Document</title>
+        <style>
+            #fruits {
+                display: flex;
+                list-style: none;
+                padding: 20px;
+                border: 2px solid red;
+                flex-wrap: wrap;
+            }
+
+            #fruits li {
+                width: 100px;
+                cursor: pointer;
+                background: orange;
+                margin-right: 10px;
+            }
+
+            .active {
+                color: red;
+                text-decoration: underline;
+            }
+        </style>
+    </head>
+    <body>
+
+        <ul id="fruits">
+            <li id="apple" class="active">Apple</li>
+            <li id="banana">Banana</li>
+            <li id="grape">Grape</li>
+        </ul>
+
+        <div>현재 고른 과일 : <em class="msg">Apple</em></div>
+
+        <label>
+            새로운 과일을 추가해주세요!
+            <input type="text" class="text-box">
+            <button id="add">추가</button>
+        </label>
+
+        <script>
+           /* 부모에서 자식으로 위임: 캡쳐링
+
+            li태그 하나하나에 이벤트를 붙이면
+            새로운 태그 추가시 태그들에도 하나하나 이벤트를 붙여야 합니다.
+            따라서 부모태그인 ul 태그에 범용적인 이벤트를 하나 바인딩해서
+            자식인 li들에게 일괄적으로 적용하는 것을 위임이라고 부릅니다. 
+            */
+            const $fruits = document.querySelector('#fruits');
+
+
+            // $fruit에만 이벤트를 단 한 번 걸어서 처리
+            $fruits.onclick = function(e){
+                // 클릭한 요소가 li인지 검사해서 아니라면 이벤트 실행을 막기
+                
+                // 실제로는 fruit내부 li에만 적용
+                console.log(e.target.matches('#frutis>li'));
+                
+                // fruits의 자식인 li가 아닌데 이벤트가 발동된다면
+                if(!e.target.matches('#fruits>li')){
+                    // early return 패턴(실행 불가 요건일 때 바로 함수 종료)
+                    return;
+                }
+
+                // - 메소드 분리 +  비즈니스 로직은 1줄씩 진행
+                // 1. class에 active가 걸린 li의 active를 제거 
+                removeActive(); 
+
+                // 2. 내가 클릭한 대상(event.target)에 active를 새로 부여
+                e.target.classList.add('active');
+
+                // 3. 텍스트를 em.msg내부 텍스트로 복사해서 갱신
+                document.querySelector("em.msg").textContent = e.target.textContent;
+            }
+
+
+            
+                // 입력창에 과일 이름을 쓰고 '추가' 버튼 누를 시
+                const $add = document.getElementById('add')
+                // input 태그에 있는 value값을 얻어오기 이해 input 태그 변수로 땡겨오기
+               $textInput = document.querySelector("input.text-box");
+
+                // 입력창에 있던 텍스트가 <li id='text'>텍스트<li>
+                $add.onclick = () =>{
+                 
+                }
+                // 형식으로 ul의 마지막 자식으로 추가되도록 이벤트 설정
+            
+
+
+
+
+//  함수분리 ( 리팩토링 )
+            //태그에서 .active를 제거
+            const removeActive = () => {
+                            // $fruits의 전체 자식을 스프레드 문법으로 리스트화
+                for($li of [...$fruits.children]){
+                    // 개별 li를 $li변수에 저장한 다음
+                    // class="...active" 형식으로 active라는 문구가 포함되었는지 검사
+                    
+                    if($li.classList.contains('active'))
+                        // 있다면 active라는 문구를 삭제
+                        $li.classList.remove('active');
+                }
+            }
+
+            // 
+            function makeNemFruit(){
+                // li태그를 document.createElement("태그명")를 이용해 생성해주세요.
+                $li = document.createElement("li");
+                console.log($li);
+                // 위에서 만든 li태그에 .textContent = input.value로 내용을 넣어주세요.
+                $li.textContent = $textInput.value;
+
+                // id속성을 추가해주세요 .setAttribute("id","추가할id명")
+                $li.setAttribute("id",$textInput.value.trim()); //trim()함수는 앞뒤 공백 삭제 : FoolProof 방지용
+
+                // ul태그의 마지막 자식을 추가해주세요 (.appendChild(추가할 태그명) 사용)
+                $fruits.appendChild($li)
+                console.log($li);
+
+                // 제출버튼이 눌리면 input에 기입된 텍스트가 사라지게 해주세요.
+                $textInput.value ='';
+            }
+
+            // 해당 함수를 추가 버튼에 onclick으로 연결해주시고 확인해보세요.
+            $add.onclick = makeNemFruit;
+        
+        </script>
+
+</body>
+</html>

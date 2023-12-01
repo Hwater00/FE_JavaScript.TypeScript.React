@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang='ko'>
+    <head>
+        <meta charset='UTF-8'>
+        <title>Document</title>
+    </head>
+    <body>
+
+        <p>아무곳이나 클릭하세요!</p>
+        <em class="msg"></em>
+
+        <hr><hr><hr>
+
+        <input type="text" id="text"> 
+        <p class="show"></p>
+
+        <script>
+            // 모든 DOM의 최상단에 자동으로 생성되는 객체(documetn)에도
+            // 이벤트를 걸 수 있다.
+            document.onclick = function(event){ // 행동을 하는 순간 이벤트 객체가 자동으로 생성됨
+                console.log(event);
+
+                // 마우스 좌표 구하기.
+                // 리스트 구조분해할당이 아닌 객체 구조분해할당은 키값명이 일치하면 전달해줌.
+                // event배열이 아닌 자바스크립트 객체의 x,y 프로퍼티에 있는 값
+                const{x,y}=event;
+                console.log(`x좌표:${x}, y좌표:${y}`);
+
+                // 변수로 받지 않고 event 객체 내부로 직접 접근
+                console.log(`x좌표: ${event.x}, y좌표:${event.y}`)
+
+                // 전체 문서 중 아무곳이나 클릭했을 때 위의 em.msg인 지점에 좌표가 찍히도록 
+                $em = document.querySelector('em.msg');
+                $em.textContent = `x좌표: ${event.x}, y좌표:${event.y}`;
+
+                // 기명함수에서도 함수 선언부의 첫 파라미터를 이벤트 객체로 지정합니다.
+                const $input = document.querySelector('input');
+                function inputKeyUp(e){
+                    console.log(e);
+                    const $show = document.querySelector('.show');
+
+                    // input 태그 내부에 적힌 값은 .value로 얻어올 수 있음.
+                    $show.textContent = $input.value;
+                    console.log($input.value);
+                }
+                // input 태그에 커서가 있을 때, 키보드가 때지면 발동
+                $input.addEventListener('keyup',inputKeyUp);
+            }
+        </script>
+
+</body>
+</html>

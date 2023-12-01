@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang='ko'>
+    <head>
+        <meta charset='UTF-8'>
+        <title>Document</title>
+        <style>
+
+            .box {
+                width: 100px;
+                height: 100px;
+                background: orange;
+                margin: 20px;
+            }
+            .box.red {
+                background: red;
+            }
+            .box.green {
+                background: yellowgreen;
+                font-size: 25px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+        </style>
+    </head>
+    <body>
+         <!--  css에서 띄어쓰기로 구분자 -->
+        <div class="box" onclick="alert('첫 박스가 클릭됨');"></div>
+        <div class="box red" onclick="witdhDouble();"></div>
+        <div class="box green" onmouseover="onMouseWidhText();" onmouseout="onMouseOutText();"></div>
+
+        <script>
+            function witdhDouble(){
+                // Tip : 태그인 경우 $를 붙여 변수 표시를 원활하게
+                const $redBox = document.querySelector('.red');
+                $redBox.style.width = '200px';
+            }
+
+            // box green에 마우스가 진입했을 때
+            // 내부 텍스트로 안녕이 추가되게 해주세요.
+            // $요소명.textContent = '안녕';
+            const onMouseWidhText = () => {
+                const $greenBox = document.querySelector('.green');
+                $greenBox.textContent =" 안녕";
+            }
+
+            // onmousout을 이용해서 마우스가 box green에서 빠졌을 때
+            // 내부 텍스트로 '안녕'이 사라지게 해주세요.
+            const onMouseOutText = ()=>{
+                const $greenBox = document.querySelector('.green');
+                $greenBox.textContent ="";
+            }
+        </script>
+    </body>
+</html>

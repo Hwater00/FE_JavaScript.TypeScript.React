@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang='ko'>
+    <head>
+        <meta charset='UTF-8'>
+        <title>Document</title>
+        <style>
+            /*  %숫자는 0점에서 가장 먼 지점까지의 거리를 잡고 그 사이에서 떨어질 위차 %를 의미 */
+            #fruits {
+                padding: 50px;
+                border: 2px solid red;
+            }
+            #fruits li {
+                background: yellow;
+                margin-bottom: 10px;
+            }
+
+            /* 근거리 선택자: 첫 번째 자식 */
+            #fruits li:first-child {
+                position: absolute;
+                bottom: 10%;
+                right: 5%;
+            }
+        </style>
+    </head>
+    <body>
+        <ul id="fruits">
+            <li class="apple">Apple</li>
+            <li class="banana">Banana</li>
+            <li class="grape">Grape</li>
+        </ul>
+
+        <script>
+            // 이벤트 전파의 위치는 태그 내부 구조를 기준으로 하고 화면 배치와는 다르다.
+            // ul 태그에 이벤트를 작성하면, 하위 태그인 li들에도 걸리는 효과 발생 => 캡쳐링
+            const $fruits = document.getElementById('fruits');
+
+            const $apple = $fruits.firstElementChild  //FirstChild가 아닌 이유는? <ul id="fruits" 텍스트있을수 있음(현재 null)>
+
+                    // 익명화살표함수의 파라미터로 이벤트 지정, 2개 이상 또는 0개 인 경우에는 무조건 () 필요
+            const clickEvent = (e) =>{
+                console.log('ul의 클릭이벤트 발생!');
+                // 내가 클릭한 요소가 tsrget이고 dir로 조회함.
+                console.dir(e.target); 
+                console.log(`${e.target.tagName} - 눌렀음!`)
+            }
+
+            // addEventListener로 클릭이벤트를 fruits에 등록해보세요.
+            $fruits.addEventListener("click",clickEvent);
+            // applie에 핸들러 프로퍼티방식으로 apple을 클릭하면 alert을 띄우도록 해주세요.
+            $apple.onclick = e => {
+                console.log("apple 요소 클릭됨");
+            }
+        </script>
+    </body>
+</html>
