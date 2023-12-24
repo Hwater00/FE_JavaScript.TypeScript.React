@@ -2,12 +2,31 @@ import styled from "styled-components";
 import Title from "../title/Title";
 import Lable from "../label/Lable";
 import Button from "../button/Button";
+import { useState } from "react";
 
 
 
 
 // 컴포넌트 명으로 함수를 만듭니다.
 const Container = ()=>{ 
+
+    // 상태 변수를 최상단에 위치하도록 작성합니다.
+    // 상태는 컨테이너가 가지고 있고 자식이 클릭되면 부모가 변경되는 로직 설정 값입니다.
+    // cv는 변수, setCv는 cv값의 변경을 유발하는 세터, cv의 초기값은 0으로 대입
+    const [countValue, setCountValue] = useState(0); // 원래 useState가 리스트 형식이었고 구조 분해 할다응ㄹ 사용중
+
+    const plus =()=>{
+        // 클릭되면 countValue의 값에 1을 더해서 갱신하고 렌더링 유발
+        setCountValue(countValue+1);
+    }
+
+    const minus =() =>{
+        setCountValue(countValue-1);
+    }
+
+
+
+
     const StyleDiv = styled.div`
     display: flex;
     align-items: center;
@@ -31,13 +50,13 @@ const Container = ()=>{
             <ContainerdDiv>
             <Title/>
             <StyleDiv>
-                <Button brnTitle="빼기" btnNumber={20}/>
-                <Lable/>
-                <Button brnTitle="더하기"/>
+                <Button brnTitle="빼기" btnNumber={20} eventFunction={minus}/>
+                <Lable countValue= {countValue}/>
+                <Button brnTitle="더하기" eventFunction={plus}/>
             </StyleDiv>
             </ContainerdDiv>
         </>
     )
 }
-// 외부에서 해당 tsx 파일을 로드할 수 있도록 위쪽의 함수를 ex0ㅁㄴ\7port 해줍니다.
+// 외부에서 해당 tsx 파일을 로드할 수 있도록 위쪽의 함수를 export 해줍니다.
 export default Container;
